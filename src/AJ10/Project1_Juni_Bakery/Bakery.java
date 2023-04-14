@@ -64,6 +64,7 @@ public class Bakery {
     private String position;
     private boolean employeeOfTheMonth;
     private double salary;
+    private int number;
 
     public Worker(String n, String p, boolean e, double s) {
       name = n;
@@ -129,7 +130,7 @@ public class Bakery {
    * @param numWorkers - the number of Worker objects to create
    **/
   public void hireWorkers(int numWorkers) {
-    for(int i=1;i<;i++){
+    for(int i=1;i<1;i++){
 
     }
   }
