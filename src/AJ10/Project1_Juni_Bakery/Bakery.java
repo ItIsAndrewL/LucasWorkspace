@@ -1,5 +1,4 @@
 package AJ10.Project1_Juni_Bakery;
-
 import java.util.*;
 
 public class Bakery {
@@ -130,7 +129,9 @@ public class Bakery {
    * @param numWorkers - the number of Worker objects to create
    **/
   public void hireWorkers(int numWorkers) {
-    //TODO
+    for(int i=1;i<;i++){
+
+    }
   }
   /**
    * creates the given number of BakedGood objects and adds them to the bakedGoods ArrayList
