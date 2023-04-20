@@ -25,7 +25,7 @@ Answer Here:*/
 Nested class - is a class inside of a class
 Two types:
 static nested class
-  regular classes that have been put isnide of another class for convenience
+  regular classes that have been put inside of another class for convenience
 
 inner class
   create objects that live inside of an instance.

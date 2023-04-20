@@ -64,7 +64,6 @@ public class Bakery {
     private String position;
     private boolean employeeOfTheMonth;
     private double salary;
-    private int number;
 
     public Worker(String n, String p, boolean e, double s) {
       name = n;
@@ -130,8 +129,26 @@ public class Bakery {
    * @param numWorkers - the number of Worker objects to create
    **/
   public void hireWorkers(int numWorkers) {
-    for(int i=1;i<1;i++){
-
+    Scanner s = new Scanner(System.in);
+    for(int i=1;i<numWorkers;i++){
+      System.out.println("Please enter the Worker " + i + "'s name: ");
+      String name = s.nextLine();
+      System.out.println("Please enter the Worker " + i + "'s position: ");
+      String position = s.nextLine();
+      System.out.println("Please enter the Worker " + i + "'s employee of the month status (\"True\" or \"False\"): ");
+      String employeemonth = s.nextLine();
+      boolean employeebool;
+      if(employeemonth == "True"){
+        employeebool = true;
+      }
+      else{
+        employeebool = false;
+      }
+      System.out.println("Please enter the Worker " + i + "'s salary: ");
+      String salary = s.nextLine();
+      double salarydouble = Double.parseDouble(salary);
+      Worker w = new Worker(name, position, employeebool, salarydouble);
+      workers.add(w);
     }
   }
   /**
