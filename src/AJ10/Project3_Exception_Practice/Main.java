@@ -1,4 +1,4 @@
-package AJ10.Project3_Exception_Practice;
+/*package AJ10.Project3_Exception_Practice;
 
 import java.util.*;
 import java.io.*;
@@ -58,4 +58,4 @@ class Main {
     return answer;
   }
 
-}
+}*/
