@@ -4,7 +4,7 @@ class Main {
 
     Bakery juniBakery = new Bakery("Juni Bakery", "Juni Street");
 
-    juniBakery.hireWorkers(1);
+    juniBakery.hireWorkers(2);
     juniBakery.addBakedGoods(1);
     System.out.println(juniBakery);
   }

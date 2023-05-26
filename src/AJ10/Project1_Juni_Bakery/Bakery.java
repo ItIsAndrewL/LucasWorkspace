@@ -64,6 +64,7 @@ public class Bakery {
     private String position;
     private boolean employeeOfTheMonth;
     private double salary;
+    private int number;
 
     public Worker(String n, String p, boolean e, double s) {
       name = n;
@@ -129,37 +130,70 @@ public class Bakery {
    * @param numWorkers - the number of Worker objects to create
    **/
   public void hireWorkers(int numWorkers) {
-    Scanner s = new Scanner(System.in);
-    for(int i=1;i<numWorkers;i++){
-      System.out.println("Please enter the Worker " + i + "'s name: ");
-      String name = s.nextLine();
-      System.out.println("Please enter the Worker " + i + "'s position: ");
-      String position = s.nextLine();
-      System.out.println("Please enter the Worker " + i + "'s employee of the month status (\"True\" or \"False\"): ");
-      String employeemonth = s.nextLine();
-      boolean employeebool;
-      if(employeemonth == "True"){
-        employeebool = true;
+      Scanner s = new Scanner(System.in);
+      for (int i = 1; i <= numWorkers; i++) {
+        System.out.println("Please enter the Worker " + i + "'s name: ");
+        String name = s.nextLine();
+        System.out.println("Please enter the Worker " + i + "'s position: ");
+        String position = s.nextLine();
+        System.out.println("Please enter the Worker " + i + "'s employee of the month status (\"True\" or \"False\"): ");
+        String employeemonth = s.nextLine();
+        boolean employeebool;
+        if (employeemonth == "True") {
+          employeebool = true;
+        }
+        else {
+          employeebool = false;
+        }
+        System.out.println("Please enter the Worker " + i + "'s salary: ");
+        String salary = s.nextLine();
+        double salarydouble = Double.parseDouble(salary);
+        Worker w = new Worker(name, position, employeebool, salarydouble);
+        workers.add(w);
       }
-      else{
-        employeebool = false;
-      }
-      System.out.println("Please enter the Worker " + i + "'s salary: ");
-      String salary = s.nextLine();
-      double salarydouble = Double.parseDouble(salary);
-      Worker w = new Worker(name, position, employeebool, salarydouble);
-      workers.add(w);
-    }
+  }
+
+  public Worker printWorkers(int requestedworker){
+    return workers.get(requestedworker);
   }
   /**
    * creates the given number of BakedGood objects and adds them to the bakedGoods ArrayList
    * @param numBakedGoods - the number of BakedGood objects to create
    **/
   public void addBakedGoods(int numBakedGoods) {
-    //TODO
+    Scanner s = new Scanner(System.in);
+    for (int i = 1; i <= numBakedGoods; i++) {
+      System.out.println("Please enter Baked Good " + i + "'s name: ");
+      String name = s.nextLine();
+      System.out.println("Please enter the number of ingredients in Baked Good " + i);
+      String numingredients = s.nextLine();
+      int numingredient = Integer.parseInt(numingredients);
+      String[] ingredients = new String[numingredient];
+      System.out.println("Please enter Baked Good " + i + "'s ingredients: ");
+      for(int j=0;j<numingredient;j++) {
+        ingredients[j] = s.nextLine();
+      }
+      System.out.println("Please enter Baked Good " + i + "'s flavor: ");
+      String flavor = s.nextLine();
+      System.out.println("Please enter Baked Good " + i + "'s batch size: ");
+      String batchsizes = s.nextLine();
+      int batchsize = Integer.parseInt(batchsizes);
+      BakedGood w = new BakedGood(name, ingredients, numingredient, flavor, batchsize);
+      bakedGoods.add(w);
+    }
   }
   public String toString() {
-    //TODO
-    return "";
+    String work = "";
+    for(Worker w:workers){
+      work+="\n";
+      work+=w.toString();
+    }
+    String bake = "";
+    for(BakedGood b:bakedGoods){
+      bake+="\n";
+      bake+=b.toString();
+    }
+    return "The bakery '" + name + "' can be found at " + address +". We currently employ " + workers.size() + " workers: "
+            + work + "\n" + name + " currently has " + bakedGoods.size() + " baked goods to offer. Those baked goods are: " + bake;
   }
 }
