@@ -31,5 +31,5 @@ public interface List<T>  {
     public T get(int index);
 
     //deletes everything in the list
-    public boolean clearAll();
+    public void clearAll();
 }

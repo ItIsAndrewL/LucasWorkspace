@@ -42,7 +42,8 @@ public class LinkedList<T> implements List<T>{
 
     @Override
     public void removeFront() {
-        this.head = head.getNext(); length = length - 1;
+        this.head = head.getNext();
+        length = length - 1;
     }
 
     @Override
@@ -58,15 +59,25 @@ public class LinkedList<T> implements List<T>{
     @Override
     public T get(int index) {
         Node<T> finl = this.head;
-        for(int i=0;i<index;i++){
-            finl = finl.getNext();
+        if(index < 0){
+            System.out.println("Negative numbers are only theoretical.");
+            return null;
+        }
+        for (int i = 0; i < index; i++) {
+            if(finl.getNext() != null){
+                finl = finl.getNext();
+            }
+            else{
+                System.out.println("That is not a valid index.");
+                return null;
+            }
         }
         return finl.getData();
     }
 
     @Override
-    public boolean clearAll() {
-        return false;
+    public void clearAll() {
+        this.head = null;
     }
     //TODO: type all your code here!
     //NOTE: this class won't compile until you override all the methods in the interface
@@ -84,3 +95,11 @@ public class LinkedList<T> implements List<T>{
         return s.toString();
     }
 }
+
+// try {
+//            for (int i = 0; i < index; i++) {
+//                finl = finl.getNext();
+//            }
+//        } catch(IndexOutOfBoundsException e){
+//            throw new IndexOutOfBoundsException("That is not a valid index.");
+//        }
