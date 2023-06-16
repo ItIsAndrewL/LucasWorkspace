@@ -31,6 +31,6 @@ public interface List<T>  {
     T get(int index);
 
     //deletes everything in the list
-    boolean clearAll();
+    void clearAll();
 }
 

@@ -13,6 +13,8 @@ public class Main {
         System.out.println(test);
         test.removeBack();
         System.out.println(test);
-        System.out.println(test.get(2));
+        System.out.println(test.get(5));
+        test.clearAll();
+        System.out.println(test);
     }
 }
