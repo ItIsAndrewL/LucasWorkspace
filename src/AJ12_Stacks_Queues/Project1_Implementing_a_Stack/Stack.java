@@ -1,26 +1,35 @@
 package AJ12_Stacks_Queues.Project1_Implementing_a_Stack;
 
-public class Stack {
+public class Stack<T> {
 
-    static final int MAX = 1000;
-    private int top; // Index of the topmost element
-    private int stack[]; // Maximum size of Stack
+    private Node<T> top; // Index of the topmost element
 
     public Stack(){
+        top = null;
     }
 
     /** Returns true if the stack is empty **/
     public boolean isEmpty(){
-        return true;
+        return top == null;
     }
 
     /** Pushes data onto the stack **/
-    public void push(int data){
+    public void push(T data){
+        if(top == null){
+            Node<T> temp = new Node<T>(data, null);
+            top = temp;
+        }
+        else{
+            Node<T> temp1 = top;
+            Node<T> temp2 = new Node<T>(data, temp1);
+            top = temp2;
+        }
     }
 
     /** Removes topmost item from the stack & returns its value **/
-    public int pop(){
-        return -1;
+    public int pop() throws UnderflowException{
+        Node<T> temp = top.getNext();
+
     }
 
     /** Returns value of topmost item on the stack **/
