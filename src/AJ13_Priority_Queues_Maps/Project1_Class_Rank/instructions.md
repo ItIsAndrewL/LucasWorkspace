@@ -24,3 +24,5 @@ Natural ordering is specified by all objects that implement the `Comparable` int
 # Project 1: Class Rank Instructions
 
 Use a `PriorityQueue` to sort students according to their GPA. Create a `Student` class that stores the name and GPA of a student. Then create a `StudentComparator` class that compares two students according to their GPA. Then add 3 students to a priority queue, and poll from the queue until it’s empty. The students should come out of the queue in order from highest to lowest GPA - the priority queue will sort the students for us!
+
+[Click Here For Demo Video](https://static.junilearning.com/java_level_3/aj_13_class_rank.mp4)
