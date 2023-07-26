@@ -9,23 +9,28 @@ public class DoublyLinkedList<T>{
   private int length;
 
   private class Node<T> {
-    // TODO: Complete Node Class
+    private T data;
+    private Node<T> next;
+    private Node<T> prev;
     public Node(T data){
+      this.data = data;
+      this.next = null;
+      this.prev = null;
     }
     public T getData() {
-      return null;
+      return this.data;
     }
     public Node<T> getNext() {
-      return null;
+      return this.next;
     }
     public Node<T> getPrevious() {
-      return null;
+      return this.prev;
     }
     public void setNext(Node<T> next) {
-
+      this.next = next;
     }
     public void setPrevious(Node<T> previous) {
-
+      this.prev = previous;
     }
   }
 
@@ -77,7 +82,7 @@ public class DoublyLinkedList<T>{
     if (tail == null) {
       head = newNode;
     } else {
-      Node<T> oldBack = tail.getPrevious();
+      Node<T> oldBack = tail;
       if (oldBack == null) {
         throw new IllegalStateException();
       }
@@ -156,5 +161,25 @@ public class DoublyLinkedList<T>{
     }
     s.append("]");
     return s.toString();
+  }
+  public boolean remove(T data){
+    Node<T> newNode = head;
+    for(int i=0;i<length-1;i++){
+      if(newNode == head && newNode.getData() == data){
+        newNode.getPrevious().setNext(newNode.next);
+        return true;
+      }
+      else if(newNode == tail && newNode.getData() == data){
+        newNode.getNext().setPrevious(newNode.prev);
+        return true;
+      }
+      else if(newNode.getData() == data){
+        newNode.getNext().setPrevious(newNode.prev);
+        newNode.getPrevious().setNext(newNode.next);
+        return true;
+      }
+      newNode = newNode.getNext();
+    }
+    return false;
   }
 }

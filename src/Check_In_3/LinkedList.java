@@ -5,23 +5,35 @@ public class LinkedList<T> {
   private int length;
 
   private class Node<T> {
-    // TODO: Complete Node Inner Class
+    private T data;
+    private Node<T> pointer;
     public Node(T data) {
-
+      this.data = data;
+      this.pointer = null;
     }
     public T getData() {
-      return null; // Note: Replace these `return null` statements
+      return this.data;
     }
     public Node<T> getNext() {
-      return null;
+      return this.pointer;
     }
     public void setNext(Node<T> next) {
-
+      this.pointer = next;
     }
 
   }
 
-  // TODO: WRITE INDEX OF METHOD HERE
+  public int indexOf(T data){
+    int index = -1;
+    Node<T> current = this.head;
+    for(int i=0;i<this.getLength();i++){
+      if(current.data == data){
+        index = i;
+      }
+      current = current.getNext();
+    }
+    return index;
+  }
 
   public LinkedList() {
     this.head = null;
