@@ -18,5 +18,6 @@ public class Main {
         //System.out.println(metal.inOrder());
         metal.clear();
         System.out.println(metal.inOrder());
+        System.out.println("hello!");
     }
 }
