@@ -167,12 +167,12 @@ class Main {
 
     // Map-1: What is a map?
 
-    //A map is a data structure where each thing had both a key and a data value
+    //A map is a data structure where each node has both a key and a data value
 
     // Map-2: Henry wants to create a map that pairs his friend’s names with their ages. Combine the two parallel lists into a map! (Use java's implementation of a map)
 
-    String[] names = {"Joe", "Phil", "Cheyenne", "Josh", "Ryan", "Samantha", "Nate", "Addie", "Nichole", "Raegan", "Caroline", "Kyle"};
-    int[] ages = {22, 23, 21, 18, 18, 25, 24, 22, 21, 20, 19, 22};
+    String[] names = {"Joe", "Phil", "Cheyenne", "Josh", "Ryan", "Samantha", "Nate", "Addie", "Nichole", "Raegan", "Caroline"};
+    int[] ages = {22, 23, 21, 18, 18, 25, 24, 22, 21, 20, 19};
 
     Map<String, Integer> namage = new TreeMap<>();
     for(int i=0;i<=names.length-1;i++){
@@ -181,10 +181,10 @@ class Main {
 
     // Map-3,4: Iterate through the map and print out each name and age on a separate line.
 
-    /*for(int i=0;i<=names.length-1;i++){
+    for(int i=0;i<=names.length-1;i++){
       System.out.println(names[i]);
       System.out.println(namage.get(names[i]));
-    }*/
+    }
 
     // Map-5: Check if Henry’s friend “Kyle” is in the map. If he is, print “Kyle is in the map!”. If he’s not, add him to the map. Kyle is 22 years old.
 

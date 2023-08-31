@@ -53,6 +53,12 @@ public class BST implements BSTInterface {
     public boolean has(int value) {
         return find(this.root, value) != null;
     }
+
+    @Override
+    public void remove(int value) {
+
+    }
+
     private Node find(Node node, int value) {
 
         //base case
@@ -70,6 +76,52 @@ public class BST implements BSTInterface {
             return find(node.right, value);
         }
 
+    }
+    private Node delFind(Node node, int value) {
+        if(node == null){
+            throw new IllegalArgumentException();
+        }
+        if(node.value == value){
+            return replacement(node);
+        }
+
+        //recursive case
+        if(value < node.value){
+            node.left = delFind(node, value);
+            return node;
+        }else{
+            node.right = delFind(node, value);
+            return node;
+        }
+    }
+    private Node replacement(Node node){
+        if(node.left != null && node.right != null){
+            //2 children
+            int success = successor(node.right);
+            node.right = delFind(node.right, success);
+            node.value = success;
+            return node;
+        }
+        else if(node.left != null){
+            //left child
+            return node.left;
+        }
+        else if(node.right != null){
+            //right child
+            return node.right;
+        }
+        else{
+            //no children
+            return null;
+        }
+    }
+    private int successor(Node node){
+
+        if(node.left == null){
+            return node.value;
+        }
+
+        return successor(node.left);
     }
     public String postOrder(){
         return POHelper(this.root);
