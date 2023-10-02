@@ -5,9 +5,9 @@ public class Main {
         BST metal = new BST();
         metal.insert(5);
         metal.insert(7);
-        metal.insert(6);
         metal.insert(2);
         metal.insert(12);
+        metal.insert(6);
         metal.insert(1);
         metal.insert(4);
         //14261275
@@ -16,8 +16,14 @@ public class Main {
         //System.out.println(metal.postOrder());
         //System.out.println(metal.preOrder());
         //System.out.println(metal.inOrder());
-        metal.clear();
         System.out.println(metal.inOrder());
-        System.out.println("hello!");
+        metal.remove(12);
+        System.out.println(metal.inOrder());
+        metal.remove(7);
+        System.out.println(metal.inOrder());
+        metal.remove(2);
+        System.out.println(metal.inOrder());
+        metal.remove(5);
+        System.out.println(metal.inOrder());
     }
 }

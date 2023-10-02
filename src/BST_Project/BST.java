@@ -56,7 +56,7 @@ public class BST implements BSTInterface {
 
     @Override
     public void remove(int value) {
-
+        delFind(root, value);
     }
 
     private Node find(Node node, int value) {
@@ -87,10 +87,10 @@ public class BST implements BSTInterface {
 
         //recursive case
         if(value < node.value){
-            node.left = delFind(node, value);
+            node.left = delFind(node.left, value);
             return node;
         }else{
-            node.right = delFind(node, value);
+            node.right = delFind(node.right, value);
             return node;
         }
     }
