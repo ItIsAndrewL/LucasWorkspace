@@ -25,8 +25,8 @@ public class HashMap<K extends Comparable<K>, V> implements Map<K, V> {
 
     //CONSTRUCTOR -----------------------------------------------
     public HashMap() {
-        this.tableSize = 23;
-        this.hashTable = new Object[23];
+        this.tableSize = 15;
+        this.hashTable = new Object[PRIMES[tableSize]];
     }
 
     //HASH FUNCTION ---------------------------------------------
@@ -37,7 +37,7 @@ public class HashMap<K extends Comparable<K>, V> implements Map<K, V> {
     //LOAD FACTOR
     private double loadFactor(){
         //returns the "load factor" of the hashcode by dividing the number of items by the total number of slots
-        return 0.0;
+        return (double)numNodes/PRIMES[tableSize];
     }
 
     //GET INDEX METHOD ------------------------------------------
@@ -76,57 +76,77 @@ public class HashMap<K extends Comparable<K>, V> implements Map<K, V> {
     @Override
     public void insert(K key, V value) {
         hashTable[getIndex(key, true)] = new Node(key, value);
+        if(loadFactor() > 0.5){
+            rehash();
+        }
         numNodes++;
     }
 
     //removes a key-value pair
     @Override
     public V remove(K key) {
-        //TODO
-        return null;
+        int index = getIndex(key, false);
+        Node node = getExistingNode(index);
+        node.flag = true;
+        numNodes--;
+        return node.value;
     }
 
     //updates value associated with key
     @Override
     public void put(K key, V value) {
-        //TODO
+        Node node = getExistingNode(getIndex(key, true));
+        node.value = value;
     }
 
     //get value associated with key
     @Override
     public V get(K key) {
-        //TODO
-        return null;
+        Node node = getExistingNode(getIndex(key, true));
+        return node.value;
     }
 
     //returns whether the hash map has the value or not
     @Override
     public boolean has(K key) {
-        //TODO
+        Node node = getNode(getIndex(key, true));
+        if(node != null && node.key.equals(key) && !node.flag){
+            return true;
+        }
         return false;
     }
 
     //returns the number of nodes that have been added
     @Override
     public int size() {
-        //TODO
-        return -1;
+        return numNodes;
     }
 
     //REHASH METHOD -------------------------------------------
     //rehashes the hashtable into a bigger hashtable
     private void rehash() {
-        //TODO
+        System.out.println("Rehashing...");
+        tableSize++;
+        Object[] oldTable = hashTable;
+        Object[] newTable = new Object[PRIMES[tableSize]];
+        hashTable = newTable;
+        Node node = null;
+        for(int i=0;i<PRIMES[tableSize-1];i++){
+            node = (Node)oldTable[i];
+            if(node != null) {
+                insert(node.key, node.value);
+            }
+        }
     }
     //---------------------------------------------------------
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("{");
-        for (int i = 0; i < tableSize; i++) {
+        for (int i = 0; i < PRIMES[tableSize]; i++) {
             Node node = (Node)hashTable[i];
             if (node != null && !node.flag) {
                 stringBuilder.append(node.toString());
-                if(i < tableSize-1){
+                if(i < PRIMES[tableSize]-1){
                     stringBuilder.append(", ");
                 }
             }
