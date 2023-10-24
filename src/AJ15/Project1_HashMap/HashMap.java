@@ -1,7 +1,6 @@
 package AJ15.Project1_HashMap;
 
-import java.util.List;
-import java.util.ArrayList;
+import AJ15.Project1_HashMap.Map;
 
 public class HashMap<K extends Comparable<K>, V> implements Map<K, V> {
 
@@ -14,11 +13,11 @@ public class HashMap<K extends Comparable<K>, V> implements Map<K, V> {
     private class Node {
         private K key;
         private V value;
-        private boolean tombStone; //marks the node as deleted
+        private boolean flag; //marks the node as deleted
         public Node(K k, V v) {
             this.key = k;
             this.value = v;
-            this.tombStone = false;
+            this.flag = false;
         }
         @Override
         public String toString() {
@@ -28,21 +27,30 @@ public class HashMap<K extends Comparable<K>, V> implements Map<K, V> {
 
     //CONSTRUCTOR -----------------------------------------------
     public HashMap() {
-        //TODO:
+        this.tableSize = 15;
+        this.hashTable = new Object[PRIMES[tableSize]];
+    }
+
+    public HashMap(int initialSize){
+        int loop = 0;
+        while(tableSize == 0){
+            if(PRIMES[loop] > initialSize){
+                tableSize = loop;
+            }
+            loop++;
+        }
+        this.hashTable = new Object[PRIMES[tableSize]];
     }
 
     //HASH FUNCTION ---------------------------------------------
     private int hash(K key) {
-        //TODO
-        //returns a unique hashcode
-        //make sure to compress the code into the bounds of the table (this can easily be done with the "mod" operator(%))
-        return -1;
+        return Math.abs(key.hashCode()) % PRIMES[tableSize];
     }
 
     //LOAD FACTOR
     private double loadFactor(){
         //returns the "load factor" of the hashcode by dividing the number of items by the total number of slots
-        return 0.0;
+        return (double)numNodes/PRIMES[tableSize];
     }
 
     //GET INDEX METHOD ------------------------------------------
@@ -55,64 +63,103 @@ public class HashMap<K extends Comparable<K>, V> implements Map<K, V> {
         //3. Finally if there are collisions, it uses linear probing to find an open address (index).
 
         //If the method is used for inserting (denoted by the parameter "inserting"), stop probing and return the index if a tombstone is encountered. If it's used for any other purpose (deleting, putting, getting, etc) keep probing when you encounter a tombstone (the item you're looking for might be further in the table).
-        return -1;
+        int index = hash(key);
+        Node node = getNode(index);
+        while(node != null && !key.equals(node.key)){
+            if(inserting && node.flag){
+                return index;
+            }
+            index = (index + 1) % PRIMES[tableSize];
+            node = getNode(index);
+        }
+        return index;
     }
-
+    private Node getNode(int index){
+        return (Node)hashTable[index];
+    }
+    private Node getExistingNode(int index){
+        Node node = (Node)hashTable[index];
+        if(node == null || node.flag){
+            throw new IllegalArgumentException("That key does not exist");
+        }
+        return node;
+    }
     // MAP METHODS -----------------------------------------------
     //inserts a key-value pair
     @Override
     public void insert(K key, V value) {
-        //TODO
+        if(loadFactor() > 0.5){
+            rehash();
+        }
+        hashTable[getIndex(key, true)] = new Node(key, value);
+        numNodes++;
     }
 
     //removes a key-value pair
     @Override
     public V remove(K key) {
-        //TODO
-        return null;
+        int index = getIndex(key, false);
+        Node node = getExistingNode(index);
+        node.flag = true;
+        numNodes--;
+        return node.value;
     }
 
     //updates value associated with key
     @Override
     public void put(K key, V value) {
-        //TODO
+        Node node = getExistingNode(getIndex(key, true));
+        node.value = value;
     }
 
     //get value associated with key
     @Override
     public V get(K key) {
-        //TODO
-        return null;
+        Node node = getExistingNode(getIndex(key, true));
+        return node.value;
     }
 
     //returns whether the hash map has the value or not
     @Override
     public boolean has(K key) {
-        //TODO
+        Node node = getNode(getIndex(key, true));
+        if(node != null && node.key.equals(key) && !node.flag){
+            return true;
+        }
         return false;
     }
 
     //returns the number of nodes that have been added
     @Override
     public int size() {
-        //TODO
-        return -1;
+        return numNodes;
     }
 
     //REHASH METHOD -------------------------------------------
     //rehashes the hashtable into a bigger hashtable
     private void rehash() {
-        //TODO
+        System.out.println("Rehashing...");
+        tableSize++;
+        Object[] oldTable = hashTable;
+        System.out.println(oldTable.length);
+        hashTable = new Object[PRIMES[tableSize]];
+        Node node = null;
+        for(int i=0;i<oldTable.length;i++){
+            node = (Node)oldTable[i];
+            if(node != null) {
+                insert(node.key, node.value);
+            }
+        }
     }
     //---------------------------------------------------------
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("{");
-        for (int i = 0; i < tableSize; i++) {
+        for (int i = 0; i < PRIMES[tableSize]; i++) {
             Node node = (Node)hashTable[i];
-            if (node != null && !node.tombStone) {
+            if (node != null && !node.flag) {
                 stringBuilder.append(node.toString());
-                if(i < tableSize-1){
+                if(i < PRIMES[tableSize]-1){
                     stringBuilder.append(", ");
                 }
             }
