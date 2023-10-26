@@ -15,7 +15,7 @@ public final class Main {
         Scanner scan = new Scanner(System.in);
         System.out.println("Enter a filename");
         String input = scan.nextLine();
-        input = "C:\\Users\\lucas.briddle\\IdeaProjects\\LucasWorkspaceCloud\\src\\AJ15\\JuniSearchEngine\\" + input;
+        input = "C:\\Users\\lucas\\IdeaProjects\\LucasWorkspace\\src\\AJ15\\JuniSearchEngine\\" + input;
         File file = new File(input);
         try{
             Scanner text = new Scanner(file);
@@ -36,8 +36,16 @@ public final class Main {
             while(true){
                 System.out.println("Search: ");
                 input = scan.nextLine();
-                 //Loop through this, new line each time
-                webstite.get(input).toArray();
+                //System.out.println(webstite.get(input));
+                //Raw list ^
+                try{
+                    ArrayList<String> arr = webstite.get(input);
+                    for (int i = 0; i < arr.size(); i++){
+                        System.out.println(i + 1 + ":" + arr.get(i));
+                    }
+                }catch(IllegalArgumentException e){
+                    System.out.println("0 results found");
+                }
             }
         }catch(FileNotFoundException e){
             System.out.println("File not found");
