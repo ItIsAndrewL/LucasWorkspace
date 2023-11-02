@@ -35,14 +35,37 @@ public class DirectedGraph<T> implements Graph<T>{
 
     @Override
     public void addVertex(T vertex) {
-        map.put(vertex, null);
+        if(!this.hasVertex(vertex)){
+            map.put(vertex, new ArrayList<T>());
+        }
     }
 
     @Override
     public void addEdge(T source, T destination) {
+        if(!this.hasVertex(source)){
+            addVertex(source);
+        }
+        if(!this.hasVertex(destination)){
+            addVertex(destination);
+        }
         ArrayList<T> arr = map.get(source);
         arr.add(destination);
         map.put(source, arr);
         numEdges++;
+    }
+
+    public String toString(){
+        String string = "";
+        //for(int i=0;i<this.getVertexCount();i++){
+        //
+        //}
+        for(T key : map.keySet()){
+            string = string + key + ": ";
+            for(T iter : map.get(key)){
+                string = string + iter + " ";
+            }
+            string = string + "\n";
+        }
+        return string;
     }
 }
