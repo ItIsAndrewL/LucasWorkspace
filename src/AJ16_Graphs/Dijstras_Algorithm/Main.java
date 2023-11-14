@@ -17,6 +17,9 @@ class Main {
                 /*4*/ { 0, 1, 5, 0, 0}};
 
         System.out.println("\nDijkstra's Shortest Path:\n");
+        ShortestPathTree tree = new ShortestPathTree();
+        tree.dijkstra(graph, 0);
+        System.out.println(tree.vertices.get(0).getDistance());
     }
 }
 
