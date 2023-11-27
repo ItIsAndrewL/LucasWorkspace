@@ -22,10 +22,13 @@ public class ShortestPathTree{
         while(unvisited.size() > 0){
             Vertex<Integer> temp = unvisited.poll();
             for(int i=0;i<graph.length;i++){
-                if(graph[source][i] != 0 && unvisited.contains(vertices.get(i)) && graph[source][i] < vertices.get(i).getDistance()){
-                    vertices.get(i).setDistance(graph[source][i] + vertices.get(source).getDistance());
-                    unvisited.remove(vertices.get(source));
-                    unvisited.add(vertices.get(source));
+                Vertex sourc = vertices.get(source);
+                Vertex current = vertices.get(i);
+                if(graph[source][i] != 0 && unvisited.contains(current) && graph[source][i] + sourc.getDistance() < current.getDistance()){
+                    current.setDistance(graph[source][i] + sourc.getDistance());
+                    current.setPrevious(sourc);
+                    unvisited.remove(current);
+                    unvisited.add(current);
                 }
             }
             source = vertices.indexOf(unvisited.peek());
