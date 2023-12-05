@@ -4,6 +4,7 @@ import AJ16_Graphs.Graph;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class UndirectedGraph<T> implements Graph<T> {
     private HashMap<T, ArrayList<T>> map = new HashMap<>();
@@ -54,21 +55,32 @@ public class UndirectedGraph<T> implements Graph<T> {
         ArrayList<T> arr = map.get(source);
         arr.add(destination);
         map.put(source, arr);
+        arr = map.get(destination);
+        arr.add(source);
+        map.put(destination, arr);
         numEdges++;
     }
 
     public String toString(){
         String string = "";
-        //for(int i=0;i<this.getVertexCount();i++){
-        //
-        //}
-        for(T key : map.keySet()){
-            string = string + key + ": ";
-            for(T iter : map.get(key)){
-                string = string + iter + " ";
+        int oddcount = 0;
+        HashMap<T, Boolean> visitor = new HashMap<>();
+        for(T k : map.keySet()){
+            visitor.put(k, false);
+        }
+        for(T v : visitor.keySet()){
+            if(!visitor.get(v)){
+                return "There is no valid route, this graph is unconnected";
             }
-            string = string + "\n";
         }
         return string;
+    }
+    public void isGraphConnected(HashMap<T, Boolean> visitor, T key){
+        visitor.put(key, true);
+        for(T i : map.get(key)){
+            if(!visitor.get(i)){
+                isGraphConnected(visitor, i);
+            }
+        }
     }
 }
