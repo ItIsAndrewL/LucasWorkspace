@@ -65,15 +65,31 @@ public class UndirectedGraph<T> implements Graph<T> {
         String string = "";
         int oddcount = 0;
         HashMap<T, Boolean> visitor = new HashMap<>();
+        T temp = null;
         for(T k : map.keySet()){
             visitor.put(k, false);
+            temp = k;
         }
+        isGraphConnected(visitor, temp);
         for(T v : visitor.keySet()){
             if(!visitor.get(v)){
                 return "There is no valid route, this graph is unconnected";
             }
         }
-        return string;
+        for(T k : map.keySet()){
+            if(map.get(k).size()%2!=0){
+                oddcount++;
+            }
+        }
+        if(oddcount == 2){
+            return "There is a Eulerian path";
+        }
+        else if(oddcount == 0){
+            return "There is a Eulerian cycle";
+        }
+        else{
+            return "There is no Eulerian path or cycle";
+        }
     }
     public void isGraphConnected(HashMap<T, Boolean> visitor, T key){
         visitor.put(key, true);

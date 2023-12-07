@@ -7,6 +7,12 @@ public class Main {
     //If there are zero vertices with an odd degree there is a eulerian cycle.
     //If there are two vertices with an odd degree, there is a eulerian path.
     //If there is anything else, there are no eulerian paths or cycles.
-
-
+    public static void main(String[] args) {
+        UndirectedGraph<Integer> route = new UndirectedGraph<>();
+        route.addEdge(1, 3);
+        route.addEdge(1, 4);
+        route.addEdge(2, 4);
+        route.addEdge(1, 5);
+        System.out.println(route);
+    }
 }
