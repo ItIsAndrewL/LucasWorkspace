@@ -35,7 +35,7 @@ public class WeightedGraph<T, W> implements Network<T,W>{
 
     @Override
     public void addVertex(T vertex) {
-        if(map.get(vertex) == null) {
+        if(!this.hasVertex(vertex)) {
             map.put(vertex, new HashMap<T, W>());
         }
     }
@@ -63,9 +63,10 @@ public class WeightedGraph<T, W> implements Network<T,W>{
         String string = "";
         for(T vertex : map.keySet()){
             string = string + vertex.toString() + ": {";
-            Hashmap<T, W> hashmap = map.get(vertex);
-            for(T edge : map.get(vertex).keySet()){
-                string = string + "(" + edge.toString() + ", " + map.get(vertex).get(edge);
+            HashMap<T, W> vertexx = map.get(vertex);
+            HashMap<T, W> hashmap = vertexx;
+            for(T edge : vertexx.keySet()){
+                string = string + "(" + edge.toString() + ", " + vertexx.get(edge) + ")";
             }
             string = string + "}\n";
         }
