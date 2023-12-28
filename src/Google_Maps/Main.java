@@ -36,6 +36,7 @@ class Main {
                 map.addEdge(location1, location2, distance);
             }
             text.close();
+
             System.out.println("Locations Loaded!");
             System.out.println();
             System.out.println("LOCATIONS:");
@@ -44,7 +45,16 @@ class Main {
             }
             //System.out.println(map);
             while(true){
+                System.out.println("\nEnter a location:");
+                String start = scan.nextLine();
+                System.out.println("\nEnter a destination:");
+                String end = scan.nextLine();
+                if(locations.get(start) != null && locations.get(end) != null){
 
+                }
+                else{
+                    System.out.println("Those are not valid locations!");
+                }
             }
         }catch(FileNotFoundException e){
             System.out.println("File not found");
