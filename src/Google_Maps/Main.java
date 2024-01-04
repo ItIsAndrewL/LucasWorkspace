@@ -6,13 +6,25 @@ import java.util.*;
 import java.util.Scanner;
 
 class Main {
+    public static void print(Location location){
+        System.out.printf("The total distance to your destination is: %.2f miles\n", location.getDistance());
+        printrecursive(location);
+    }
+    public static void printrecursive(Location current){
+        if(current.getPrevious() == null)
+        {
+            return;
+        }
+        printrecursive(current.getPrevious());
+        System.out.printf("%s ---> %s : %.2f miles.\n",  current.getPrevious(), current, current.getDistance() - current.getPrevious().getDistance());
+    }
     public static void main(String args[]) {
         WeightedGraph<String, Double> map = new WeightedGraph<>();
         HashMap<String, Location> locations = new HashMap<>();
         //map.addEdge("Google", "Juni", 5);
         //System.out.println(map);
         Scanner scan = new Scanner(System.in);
-        String input = "C:\\Users\\lucas.briddle\\IdeaProjects\\LucasWorkspaceCloud\\src\\Google_Maps\\nyc.txt";
+        String input = "C:\\Users\\lucas\\IdeaProjects\\LucasWorkspace\\src\\Google_Maps\\nyc.txt";
         File file = new File(input);
         try{
             Scanner text = new Scanner(file);
@@ -43,14 +55,27 @@ class Main {
             for(String name : locations.keySet()){
                 System.out.println(name);
             }
-            //System.out.println(map);
+            ShortestPath googlemap = new ShortestPath(map, locations);
             while(true){
                 System.out.println("\nEnter a location:");
                 String start = scan.nextLine();
                 System.out.println("\nEnter a destination:");
                 String end = scan.nextLine();
                 if(locations.get(start) != null && locations.get(end) != null){
-
+                    googlemap.FindShortestPath(start, end);
+                    print(locations.get(end));
+                    /*Location current = locations.get(end);
+                    Stack<Location> path = new Stack<>();
+                    while(current.getPrevious() != null){
+                        path.add(current);
+                        current = current.getPrevious();
+                    }
+                    System.out.printf("The total distance to your destination is: %.2f miles\n", current.getDistance());
+                    while(!path.isEmpty()) {
+                        Location location = path.pop();
+                        //System.out.println(location.getPrevious() + " ---> " + location + " : " + location.getDistance() + " miles.");
+                        System.out.printf("%s ---> %s : %.2f miles.\n", location.getPrevious(), location, map.getEdges(location.getName()).get(location.getPrevious().getName()));
+                    }*/
                 }
                 else{
                     System.out.println("Those are not valid locations!");

@@ -45,6 +45,10 @@ public class Location implements Comparable<Location> {
     public void setDistance(double distance){
         this.distance = distance;
     }
+    public void setAll(double distance, Location previous) {
+        this.previous = previous;
+        this.distance = distance;
+    }
 
     @Override
     public String toString(){
